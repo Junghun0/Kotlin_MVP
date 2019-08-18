@@ -24,11 +24,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun settingToolBar(curDateTitle: String) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
-        title = curDateTitle + " " + getString(R.string.toolbar_title)
+        toolbar.title = curDateTitle + " " + getString(R.string.toolbar_title)
     }
 
     override fun progressStop() {
         progress_bar.visibility = View.GONE
+    }
+
+    override fun progressShow() {
+        progress_bar.visibility = View.VISIBLE
     }
 
     override lateinit var presenter: MainContract.Presenter
@@ -52,20 +56,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
         main_recyclerView.adapter = adapter
 
-        calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer {
-            progress_bar.visibility = View.VISIBLE
-            movieNameList.clear()
-            adapter.clearData()
-            presenter.clearData()
-            presenter.getMovieInfo(it)
-            //TODO: 툴바 날짜 포멧 수정, contract 메서드로 clear 분리
-            toolbar.title = it+ " "+getString(R.string.toolbar_title)
+        calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer {date ->
+            progressShow()
+            clearData()
+            presenter.getMovieInfo(date)
+            settingToolBar(date)
         })
+    }
+
+    override fun clearData() {
+        movieNameList.clear()
+        adapter.clearData()
+        presenter.clearData()
     }
 
     private fun initPresenter() {
         presenter = MainPresenter(this).apply { start() }
-
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -114,10 +120,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onResume() {
         super.onResume()
         presenter.start()
-    }
-
-    override fun observeDateChange() {
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

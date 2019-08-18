@@ -19,9 +19,11 @@ interface MainContract {
 
         fun progressStop()
 
+        fun progressShow()
+
         fun settingToolBar(curDateTitle: String)
 
-        fun observeDateChange()
+        fun clearData()
 
     }
 
