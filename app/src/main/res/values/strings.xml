@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">영화뭐있지</string>
+    <string name="toolbar_title">기준 영화 10위</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
