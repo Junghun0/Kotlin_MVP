@@ -21,24 +21,12 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    override fun settingToolBar(curDateTitle: String) {
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(true)
-        toolbar.title = curDateTitle + " " + getString(R.string.toolbar_title)
-    }
-
-    override fun progressStop() {
-        progress_bar.visibility = View.GONE
-    }
-
-    override fun progressShow() {
-        progress_bar.visibility = View.VISIBLE
-    }
-
     override lateinit var presenter: MainContract.Presenter
     private lateinit var adapter: MovieRecyclerAdapter
     private var movieNameList = ArrayList<String>()
     private val calendarDialog = DialogFragment()
+    private var targetDt = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +46,32 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer {date ->
             progressShow()
-            clearData()
-            presenter.getMovieInfo(date)
-            settingToolBar(date)
+            if (date.toInt() > targetDt.toInt()){
+                clearData()
+                showErrorMessage("데이터가 존재하지 않습니다.")
+                toolbar.title = "데이터가 존재하지 않습니다."
+                progressStop()
+            }else{
+                clearData()
+                presenter.getMovieInfo(date)
+                settingToolBar(date)
+            }
+            toolbar.title = calendarDialog.selectedDate + " " + getString(R.string.toolbar_title)
         })
+    }
+
+    override fun settingToolBar(curDateTitle: String) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        title = curDateTitle + " " + getString(R.string.toolbar_title)
+    }
+
+    override fun progressStop() {
+        progress_bar.visibility = View.GONE
+    }
+
+    override fun progressShow() {
+        progress_bar.visibility = View.VISIBLE
     }
 
     override fun clearData() {
@@ -83,7 +93,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         calendar.add(Calendar.DATE, -1)
 
         val dateStr = dateFormat.format(calendar.time)
-        val targetDt = curDateFormat.format(calendar.time)
+        targetDt = curDateFormat.format(calendar.time)
 
         presenter.getMovieInfo(targetDt)
         settingToolBar(dateStr)
@@ -126,6 +136,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         when(item.itemId){
             R.id.action_calendar -> calendarDialog.show(supportFragmentManager, "show")
         }
-        return super.onOptionsItemSelected(item)
+        return true
     }
 }
