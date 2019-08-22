@@ -10,9 +10,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.kotlin_mvp_movie.R
 import kotlinx.android.synthetic.main.fragment_dialog.*
 
-class DialogFragment : DialogFragment(), DialogContract.View {
+class DialogFragment : DialogFragment() {
 
-    override lateinit var presenter: DialogContract.Presenter
     var updateDate:  MutableLiveData<String> = MutableLiveData()
     var selectedDate: String = ""
 
@@ -20,7 +19,6 @@ class DialogFragment : DialogFragment(), DialogContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initPresenter()
         return inflater.inflate(R.layout.fragment_dialog, container, false)
     }
 
@@ -43,9 +41,5 @@ class DialogFragment : DialogFragment(), DialogContract.View {
             dismiss()
         }
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun initPresenter() {
-        presenter = DialogPresenter(this).apply { start() }
     }
 }
