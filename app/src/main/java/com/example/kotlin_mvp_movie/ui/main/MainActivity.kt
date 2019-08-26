@@ -37,15 +37,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         adapter = MovieRecyclerAdapter(this)
         main_recyclerView.adapter = adapter
-        
+
         calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer {date ->
             progressShow()
             if (date.toInt() > targetDt.toInt()){
                 clearData()
                 toolbar.title = "데이터가 존재하지 않습니다."
                 showErrorMessage("데이터가 존재하지 않습니다.")
+                warning_layout.visibility = View.VISIBLE
                 progressStop()
             }else{
+                warning_layout.visibility = View.GONE
                 clearData()
                 presenter.getMovieInfo(date)
                 settingToolBar(date)
