@@ -21,7 +21,6 @@ class DialogFragment : DialogFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_dialog, container, false)
     }
-
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         main_calendar.setOnDateChangeListener { _, year, month, date ->

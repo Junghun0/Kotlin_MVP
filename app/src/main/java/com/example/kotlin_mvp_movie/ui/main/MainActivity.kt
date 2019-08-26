@@ -1,12 +1,12 @@
 package com.example.kotlin_mvp_movie.ui.main
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.kotlin_mvp_movie.R
 import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
 import com.example.kotlin_mvp_movie.network.model.Item
@@ -36,27 +36,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         getCurDate()
 
         adapter = MovieRecyclerAdapter(this)
-        main_recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
-            )
-        )
         main_recyclerView.adapter = adapter
-
+        
         calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer {date ->
             progressShow()
             if (date.toInt() > targetDt.toInt()){
                 clearData()
-                showErrorMessage("데이터가 존재하지 않습니다.")
                 toolbar.title = "데이터가 존재하지 않습니다."
+                showErrorMessage("데이터가 존재하지 않습니다.")
                 progressStop()
             }else{
                 clearData()
                 presenter.getMovieInfo(date)
                 settingToolBar(date)
+                main_frame_container.setBackgroundColor(Color.WHITE)
+                toolbar.title = calendarDialog.selectedDate + " " + getString(R.string.toolbar_title)
             }
-            toolbar.title = calendarDialog.selectedDate + " " + getString(R.string.toolbar_title)
         })
     }
 
