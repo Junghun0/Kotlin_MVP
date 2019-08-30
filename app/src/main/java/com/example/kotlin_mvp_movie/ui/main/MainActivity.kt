@@ -3,6 +3,7 @@ package com.example.kotlin_mvp_movie.ui.main
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -20,6 +21,13 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity(), MainContract.View {
+    override fun hideWarningView() {
+        warning_layout.visibility = View.GONE
+    }
+
+    override fun showWarningView() {
+        warning_layout.visibility = View.VISIBLE
+    }
 
     override lateinit var presenter: MainContract.Presenter
     private lateinit var adapter: MovieRecyclerAdapter
@@ -38,21 +46,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         adapter = MovieRecyclerAdapter(this)
         main_recyclerView.adapter = adapter
 
-        calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer {date ->
+        calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer { date ->
             progressShow()
-            if (date.toInt() > targetDt.toInt()){
+            if (date.toInt() > targetDt.toInt()) {
                 clearData()
+                progressStop()
                 toolbar.title = "데이터가 존재하지 않습니다."
                 showErrorMessage("데이터가 존재하지 않습니다.")
-                warning_layout.visibility = View.VISIBLE
-                progressStop()
-            }else{
-                warning_layout.visibility = View.GONE
+                showWarningView()
+            } else {
+                hideWarningView()
                 clearData()
                 presenter.getMovieInfo(date)
                 settingToolBar(date)
                 main_frame_container.setBackgroundColor(Color.WHITE)
-                toolbar.title = calendarDialog.selectedDate + " " + getString(R.string.toolbar_title)
+                toolbar.title =
+                    calendarDialog.selectedDate + " " + getString(R.string.toolbar_title)
             }
         })
     }
@@ -105,7 +114,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun bindMovieDetails(movieDetails: ArrayList<Item>) {
         adapter.addDetail(movieDetails)
         adapter.notifyDataSetChanged()
-        progressStop()
+        Log.e("sadfasadf","bindmoviedetails")
     }
 
     private fun extractMovieNames(list: List<DailyBoxOfficeList>) {
@@ -130,7 +139,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.action_calendar -> calendarDialog.show(supportFragmentManager, "show")
         }
         return true

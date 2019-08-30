@@ -46,6 +46,7 @@ class MainPresenter(private var view: MainContract.View) : MainContract.Presente
             }
             launch(Dispatchers.Main) {
                 view.bindMovieDetails(movieDetailList)
+                view.progressStop()
             }
         }
     }

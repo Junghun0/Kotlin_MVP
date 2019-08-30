@@ -25,6 +25,10 @@ interface MainContract {
 
         fun clearData()
 
+        fun showWarningView()
+
+        fun hideWarningView()
+
     }
 
     interface Presenter : BasePresenter {

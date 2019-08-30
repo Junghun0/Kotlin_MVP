@@ -39,7 +39,6 @@ class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<
     fun clearData(){
         mMovieDetailList.clear()
         mMovieDataList.clear()
-        notifyDataSetChanged()
     }
 
     fun addData(movieDataList: ArrayList<DailyBoxOfficeList>){
@@ -75,7 +74,7 @@ class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<
             holder.movie_today_audi.text = movieData.audiCnt
             holder.movie_openDt.text = movieData.openDt
             holder.movie_audi_change.text = movieData.audiChange
-            holder.movie_rate.rating = movieDetails.userRating.toFloat()
+            holder.movie_rate.rating = movieDetails.userRating.toFloat()/2
             holder.movie_rate_text.text = movieDetails.userRating
             holder.movie_director.text = movieDetails.director
             holder.movie_actor.text = movieDetails.actor
