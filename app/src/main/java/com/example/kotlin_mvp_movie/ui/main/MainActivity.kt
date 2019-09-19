@@ -3,11 +3,11 @@ package com.example.kotlin_mvp_movie.ui.main
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.kotlin_mvp_movie.R
 import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
 import com.example.kotlin_mvp_movie.network.model.Item
@@ -22,15 +22,19 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     override fun hideWarningView() {
-        warning_layout.visibility = View.GONE
+        if (warning_layout.isVisible) {
+            warning_layout.visibility = View.GONE
+        }
     }
 
     override fun showWarningView() {
-        warning_layout.visibility = View.VISIBLE
+        if (!warning_layout.isVisible) {
+            warning_layout.visibility = View.VISIBLE
+        }
     }
 
     override lateinit var presenter: MainContract.Presenter
-    private lateinit var adapter: MovieRecyclerAdapter
+    private lateinit var recyclerAdapter: MovieRecyclerAdapter
     private var movieNameList = ArrayList<String>()
     private val calendarDialog = DialogFragment()
     private var targetDt = ""
@@ -43,11 +47,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         initPresenter()
         getCurDate()
 
-        adapter = MovieRecyclerAdapter(this)
-        main_recyclerView.adapter = adapter
+        recyclerAdapter = MovieRecyclerAdapter(this)
+        main_recyclerView.apply {
+            adapter = recyclerAdapter
+        }
 
         calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer { date ->
             progressShow()
+            //선택한 날짜가 현재날짜보다 이후일 경우
             if (date.toInt() > targetDt.toInt()) {
                 clearData()
                 progressStop()
@@ -55,9 +62,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 showErrorMessage("데이터가 존재하지 않습니다.")
                 showWarningView()
             } else {
-                hideWarningView()
                 clearData()
                 presenter.getMovieInfo(date)
+                hideWarningView()
                 settingToolBar(date)
                 main_frame_container.setBackgroundColor(Color.WHITE)
                 toolbar.title =
@@ -82,7 +89,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun clearData() {
         movieNameList.clear()
-        adapter.clearData()
+        recyclerAdapter.clearData()
         presenter.clearData()
     }
 
@@ -107,14 +114,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun bindMovieData(movieData: ServerResponse) {
         extractMovieNames(movieData.boxOfficeResult!!.dailyBoxOfficeList)
-        adapter.addData(movieData.boxOfficeResult!!.dailyBoxOfficeList)
-        adapter.notifyDataSetChanged()
+        recyclerAdapter.addData(movieData.boxOfficeResult!!.dailyBoxOfficeList)
     }
 
     override fun bindMovieDetails(movieDetails: ArrayList<Item>) {
-        adapter.addDetail(movieDetails)
-        adapter.notifyDataSetChanged()
-        Log.e("sadfasadf","bindmoviedetails")
+        recyclerAdapter.addDetail(movieDetails)
     }
 
     private fun extractMovieNames(list: List<DailyBoxOfficeList>) {

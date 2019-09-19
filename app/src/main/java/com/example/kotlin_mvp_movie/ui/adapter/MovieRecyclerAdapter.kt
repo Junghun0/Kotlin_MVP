@@ -39,11 +39,11 @@ class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<
     fun clearData(){
         mMovieDetailList.clear()
         mMovieDataList.clear()
+        notifyDataSetChanged()
     }
 
     fun addData(movieDataList: ArrayList<DailyBoxOfficeList>){
         mMovieDataList.addAll(movieDataList)
-        notifyDataSetChanged()
     }
 
     fun addDetail(movieDetailList: ArrayList<Item>){

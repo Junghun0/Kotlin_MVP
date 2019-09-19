@@ -23,8 +23,7 @@
 
         <include layout="@layout/warning_layout"
             android:id="@+id/warning_layout"
-            android:visibility="gone"
-            />
+            android:visibility="gone"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"
