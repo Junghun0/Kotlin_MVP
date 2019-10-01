@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_mvp_movie.R
 import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
 import com.example.kotlin_mvp_movie.network.model.Item
-import com.example.kotlin_mvp_movie.ui.detail.WebViewActivity
-import org.jetbrains.anko.startActivity
 
 
 class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<MovieRecyclerAdapter.MovieViewHolder>() {
@@ -22,18 +19,20 @@ class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<
     private var mMovieDetailList = ArrayList<Item>()
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val movie_thumbNail: ImageView = itemView.findViewById(R.id.movie_thumbNail)
-        val movie_rate_text: TextView = itemView.findViewById(R.id.movie_rating_text)
-        val movie_rate: RatingBar = itemView.findViewById(R.id.movie_rate)
-        val movie_director: TextView = itemView.findViewById(R.id.movie_director)
-        val movie_actor: TextView = itemView.findViewById(R.id.movie_actor)
-        val movie_openDt: TextView = itemView.findViewById(R.id.movie_openDt)
-        val movie_today_audi: TextView = itemView.findViewById(R.id.movie_today_audi)
-        val movie_total_audi: TextView = itemView.findViewById(R.id.movie_total_audi)
-        val movie_total_sales: TextView = itemView.findViewById(R.id.movie_total_sales)
-        val movie_name: TextView = itemView.findViewById(R.id.movie_name)
-        val movie_audi_change: TextView = itemView.findViewById(R.id.movie_audi_change)
-        val movie_link: TextView = itemView.findViewById(R.id.movie_link)
+        val movieThumbnail: ImageView = itemView.findViewById(R.id.movie_thumbNail)
+        val movieRateText: TextView = itemView.findViewById(R.id.movie_rating_text)
+        val movieRank: TextView = itemView.findViewById(R.id.movie_rank_textView)
+//        val movieRate: RatingBar = itemView.findViewById(R.id.movie_rate)
+//        val movieDirector: TextView = itemView.findViewById(R.id.movie_director)
+//        val movieActor: TextView = itemView.findViewById(R.id.movie_actor)
+        val movieOpendt: TextView = itemView.findViewById(R.id.movie_openDt)
+//        val movieTodayAudi: TextView = itemView.findViewById(R.id.movie_today_audi)
+//        val movieTotalAudi: TextView = itemView.findViewById(R.id.movie_total_audi)
+//        val movieTotalSales: TextView = itemView.findViewById(R.id.movie_total_sales)
+        val movieName: TextView = itemView.findViewById(R.id.movie_name)
+
+//        val movieAudiChange: TextView = itemView.findViewById(R.id.movie_audi_change)
+//        val movieLink: TextView = itemView.findViewById(R.id.movie_link)
     }
 
     fun clearData(){
@@ -55,7 +54,7 @@ class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<
         parent: ViewGroup,
         viewType: Int
     ): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item_layout, parent, false)
         return MovieViewHolder(view)
     }
 
@@ -67,26 +66,46 @@ class MovieRecyclerAdapter(private val context: Context) : RecyclerView.Adapter<
         if (mMovieDetailList.size == 10){
             movieDetails = mMovieDetailList[position]
             movieData = mMovieDataList[position]
-
-            holder.movie_name.text = movieData.movieNm
-            holder.movie_total_sales.text = movieData.salesAcc
-            holder.movie_total_audi.text = movieData.audiAcc
-            holder.movie_today_audi.text = movieData.audiCnt
-            holder.movie_openDt.text = movieData.openDt
-            holder.movie_audi_change.text = movieData.audiChange
-            holder.movie_rate.rating = movieDetails.userRating.toFloat()/2
-            holder.movie_rate_text.text = movieDetails.userRating
-            holder.movie_director.text = movieDetails.director
-            holder.movie_actor.text = movieDetails.actor
-            holder.movie_link.text = movieDetails.link
+            holder.movieName.text = movieData.movieNm
+//            holder.movieTotalSales.text = movieData.salesAcc
+//            holder.movieTotalAudi.text = movieData.audiAcc
+//            holder.movieTodayAudi.text = movieData.audiCnt
+            holder.movieOpendt.text = makeDateFormat(movieData.openDt)
+//            holder.movieAudiChange.text = movieData.audiChange
+//            holder.movieRate.rating = movieDetails.userRating.toFloat()/2
+            holder.movieRateText.text = movieDetails.userRating
+//            holder.movieDirector.text = movieDetails.director
+//            holder.movieActor.text = movieDetails.actor
+//            holder.movieLink.text = movieDetails.link
+            holder.movieRank.text = movieData.rnum
+            holder.movieThumbnail.clipToOutline = true
             Glide.with(context)
                 .load(movieDetails.image)
-                .into(holder.movie_thumbNail)
-
-            holder.movie_link.setOnClickListener {
-                context.startActivity<WebViewActivity>("url" to movieDetails.link)
-            }
+                .into(holder.movieThumbnail)
+//            holder.movieLink.setOnClickListener {
+//                context.startActivity<WebViewActivity>("url" to movieDetails.link)
+//            }
         }
+    }
+
+    private fun makeDateFormat(curDate: String): String{
+        val strBuilder = StringBuilder()
+        val dateFormatList : ArrayList<String> = curDate.split("-") as ArrayList<String>
+        strBuilder.append(dateFormatList[0])
+        strBuilder.append("년 ")
+        if (dateFormatList[1].first() == '0'){
+            strBuilder.append(dateFormatList[1].last())
+        }else{
+            strBuilder.append(dateFormatList[1])
+        }
+        strBuilder.append("월 ")
+        if (dateFormatList[2].first() == '0'){
+            strBuilder.append(dateFormatList[2].last())
+        }else{
+            strBuilder.append(dateFormatList[2])
+        }
+        strBuilder.append("일")
+        return strBuilder.toString()
     }
 
 }

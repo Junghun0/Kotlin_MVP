@@ -12,4 +12,8 @@
         <item name="android:progressDrawable">@drawable/rating_custom</item>
     </style>
 
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/nanumsquareroundb</item>
+    </style>
+
 </resources>

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.kotlin_mvp_movie.R
 import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
 import com.example.kotlin_mvp_movie.network.model.Item
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         recyclerAdapter = MovieRecyclerAdapter(this)
         main_recyclerView.apply {
             adapter = recyclerAdapter
+            addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
         }
 
         calendarDialog.updateDate.observe(this, androidx.lifecycle.Observer { date ->
