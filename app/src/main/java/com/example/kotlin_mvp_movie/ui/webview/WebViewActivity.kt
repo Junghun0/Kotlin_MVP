@@ -1,4 +1,4 @@
-package com.example.kotlin_mvp_movie.ui.detail
+package com.example.kotlin_mvp_movie.ui.webview
 
 import android.os.Bundle
 import android.view.View

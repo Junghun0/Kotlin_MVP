@@ -1,5 +1,7 @@
 package com.example.kotlin_mvp_movie.network.model
 
+import java.io.Serializable
+
 /*
 boxofficeType	문자열	박스오피스 종류를 출력합니다.
 showRange	문자열	박스오피스 조회 일자를 출력합니다.
@@ -26,4 +28,5 @@ showCnt	문자열	해당일자에 상영된 횟수를 출력합니다.
 
 data class DailyBoxOfficeList(var movieNm: String, var boxofficeType: String, var showRange: String,
                               var rank: String, var openDt: String, var salesAmt: String, var salesAcc: String, val rnum: String,
-                              var audiCnt: String, var audiAcc: String, var audiChange: String)
+                              var audiInten: String, var rankInten: String,
+                              var audiCnt: String, var audiAcc: String, var audiChange: String): Serializable
