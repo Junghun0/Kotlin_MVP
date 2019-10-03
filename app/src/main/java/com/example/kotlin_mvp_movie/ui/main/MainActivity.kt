@@ -14,9 +14,10 @@ import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
 import com.example.kotlin_mvp_movie.network.model.Item
 import com.example.kotlin_mvp_movie.network.model.ServerResponse
 import com.example.kotlin_mvp_movie.ui.adapter.MovieRecyclerAdapter
-import com.example.kotlin_mvp_movie.ui.detail.ShowDetailFragment
+import com.example.kotlin_mvp_movie.ui.detail.ShowDetailActivity
 import com.example.kotlin_mvp_movie.ui.dialog.DialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,10 +51,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         getCurDate()
 
         recyclerAdapter = MovieRecyclerAdapter(this) { dailyBoxOfficeList, item ->
-            supportFragmentManager.beginTransaction()
-                .add(R.id.main_frame_container, ShowDetailFragment.newInstance(item, dailyBoxOfficeList))
-                .addToBackStack(null)
-                .commit()
+            startActivity<ShowDetailActivity>()
+//            supportFragmentManager.beginTransaction()
+//                .add(R.id.main_frame_container, ShowDetailFragment.newInstance(item, dailyBoxOfficeList))
+//                .addToBackStack(null)
+//                .commit()
         }
 
         main_recyclerView.apply {

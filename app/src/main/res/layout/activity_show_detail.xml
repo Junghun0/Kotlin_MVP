@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context=".ui.detail.ShowDetailFragment">
+    tools:context=".ui.detail.ShowDetailActivity">
 
     <ImageView
         android:id="@+id/image"
@@ -27,16 +26,16 @@
 
     <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
         android:id="@+id/recycler"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingEnd="@dimen/margin_standard"
-        android:paddingStart="@dimen/margin_standard">
+        android:paddingStart="@dimen/margin_standard"
+        android:paddingEnd="@dimen/margin_standard">
 
         <TextView
             android:id="@+id/title"
@@ -56,4 +55,3 @@
     </LinearLayout>
 
 </FrameLayout>
-
