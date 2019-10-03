@@ -11,7 +11,3 @@
 ### 사용 라이브러리
 - Coroutines
 - Glide
-
-### 사용화면
-
-<img width="450" src="https://user-images.githubusercontent.com/30828236/65405086-1a18f200-de16-11e9-8b36-a83b601b431f.gif"/>
