@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         getCurDate()
 
         recyclerAdapter = MovieRecyclerAdapter(this) { dailyBoxOfficeList, item ->
-            startActivity<ShowDetailActivity>()
+            startActivity<ShowDetailActivity>("dailyBoxOffice" to dailyBoxOfficeList, "item" to item)
 //            supportFragmentManager.beginTransaction()
 //                .add(R.id.main_frame_container, ShowDetailFragment.newInstance(item, dailyBoxOfficeList))
 //                .addToBackStack(null)

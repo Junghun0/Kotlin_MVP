@@ -86,7 +86,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val NUM_OF_ITEMS = 100
+        private const val NUM_OF_ITEMS = 1
         private const val NUM_OF_ITEMS_FEW = 3
 
         val dummyData: ArrayList<String>

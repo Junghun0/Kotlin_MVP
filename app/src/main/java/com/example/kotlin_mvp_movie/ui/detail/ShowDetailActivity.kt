@@ -3,11 +3,14 @@ package com.example.kotlin_mvp_movie.ui.detail
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlin_mvp_movie.BaseActivity
+import com.example.kotlin_mvp_movie.R
+import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks
 import com.github.ksoichiro.android.observablescrollview.ScrollState
@@ -28,30 +31,37 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks {
     private var mActionBarSize = 0
     private var mFlexibleSpaceImageHeight = 0
 
+    private lateinit var dailyBoxOfficeList: DailyBoxOfficeList
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.kotlin_mvp_movie.R.layout.activity_show_detail)
+        setContentView(R.layout.activity_show_detail)
 
-        mFlexibleSpaceImageHeight = resources.getDimensionPixelSize(com.example.kotlin_mvp_movie.R.dimen.flexible_space_image_height)
+        Log.e("item-> ",""+intent.getSerializableExtra("item"))
+        Log.e("dailyBoxOffice-> ",""+intent.getSerializableExtra("dailyBoxOffice"))
+
+        dailyBoxOfficeList = intent.getSerializableExtra("dailyBoxOffice") as DailyBoxOfficeList
+
+
+        mFlexibleSpaceImageHeight = resources.getDimensionPixelSize(R.dimen.flexible_space_image_height)
         mActionBarSize = actionBarSize
 
-        val recyclerView = findViewById<ObservableRecyclerView>(com.example.kotlin_mvp_movie.R.id.recycler)
+        val recyclerView = findViewById<ObservableRecyclerView>(R.id.recycler)
         recyclerView.setScrollViewCallbacks(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)
-        val headerView = LayoutInflater.from(this).inflate(com.example.kotlin_mvp_movie.R.layout.recycler_header, null)
+        val headerView = LayoutInflater.from(this).inflate(R.layout.recycler_header, null)
 
         headerView.post { headerView.layoutParams.height = mFlexibleSpaceImageHeight }
 
         setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight)
 
-        mImageView = findViewById(com.example.kotlin_mvp_movie.R.id.image)
-        mOverlayView = findViewById(com.example.kotlin_mvp_movie.R.id.overlay)
-        mTitleView = findViewById(com.example.kotlin_mvp_movie.R.id.title)
-        mTitleView.text = title
-        title = null
+        mImageView = findViewById(R.id.image)
+        mOverlayView = findViewById(R.id.overlay)
+        mTitleView = findViewById(R.id.title)
+        mTitleView.text = dailyBoxOfficeList.movieNm
 
-        mRecyclerViewBackground = findViewById(com.example.kotlin_mvp_movie.R.id.list_background)
+        mRecyclerViewBackground = findViewById(R.id.list_background)
 
         val scale: Float = 1 + MAX_TEXT_SCALE_DELTA
         mRecyclerViewBackground.post {
