@@ -66,13 +66,14 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="6dp"
         android:src="@drawable/star"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
     <TextView
         android:id="@+id/movie_rating_text"
+        android:textColor="#3D3C3C"
         android:fontFamily="@font/nanumsquareroundr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -92,13 +93,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="8dp"
-        android:text="예매율"
+        android:text="전날대비관객수"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/movie_thumbNail"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/audi_percent"
+        android:textColor="#3D3C3C"
         android:fontFamily="@font/nanumsquareroundr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,11 +108,12 @@
         android:layout_marginTop="8dp"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:text="111%"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/textview20"
         android:fontFamily="@font/nanumsquareroundr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,6 +126,7 @@
 
     <TextView
         android:id="@+id/movie_openDt"
+        android:textColor="#3D3C3C"
         android:fontFamily="@font/nanumsquareroundr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,6 +134,15 @@
         android:layout_marginTop="8dp"
         android:textStyle="bold"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintStart_toEndOf="@+id/textview20"
+        app:layout_constraintTop_toBottomOf="@+id/audi_percent" />
+
+    <ImageView
+        android:id="@+id/audiPercent_image"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toEndOf="@+id/audi_percent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_rating_text"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

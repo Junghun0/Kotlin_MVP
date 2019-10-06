@@ -52,10 +52,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         recyclerAdapter = MovieRecyclerAdapter(this) { dailyBoxOfficeList, item ->
             startActivity<ShowDetailActivity>("dailyBoxOffice" to dailyBoxOfficeList, "item" to item)
-//            supportFragmentManager.beginTransaction()
-//                .add(R.id.main_frame_container, ShowDetailFragment.newInstance(item, dailyBoxOfficeList))
-//                .addToBackStack(null)
-//                .commit()
         }
 
         main_recyclerView.apply {
@@ -91,11 +87,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun progressStop() {
-        progress_bar.visibility = View.GONE
+        progress_lottie.visibility = View.GONE
     }
 
     override fun progressShow() {
-        progress_bar.visibility = View.VISIBLE
+        progress_lottie.visibility = View.VISIBLE
     }
 
     override fun clearData() {

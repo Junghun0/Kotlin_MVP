@@ -1,7 +1,6 @@
 package com.example.kotlin_mvp_movie.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,8 @@ class MovieRecyclerAdapter(
     private var mMovieDetailList = ArrayList<Item>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val audiPercent: TextView = itemView.findViewById(R.id.audi_percent)
+        val audiPercentImage: ImageView = itemView.findViewById(R.id.audiPercent_image)
         val movieLayout: ConstraintLayout = itemView.findViewById(R.id.movie_layout)
 
         val movieThumbnail: ImageView = itemView.findViewById(R.id.movie_thumbNail)
@@ -85,8 +86,8 @@ class MovieRecyclerAdapter(
 //            holder.movieTodayAudi.text = movieData.audiCnt
             holder.movieOpendt.text = makeDateFormat(movieData.openDt)
 //            holder.movieAudiChange.text = movieData.audiChange
-            Log.e("audichange ", "" + movieData.audiChange)
-            Log.e("rank inten ", "" + movieData.rankInten)
+            holder.audiPercent.text = movieData.audiChange + "%"
+            checkAudiPercent(holder, movieData.audiChange)
 //            holder.movieRate.rating = movieDetails.userRating.toFloat()/2
             holder.movieRateText.text = movieDetails.userRating
 //            holder.movieDirector.text = movieDetails.director
@@ -100,6 +101,14 @@ class MovieRecyclerAdapter(
 //            holder.movieLink.setOnClickListener {
 //                context.startActivity<WebViewActivity>("url" to movieDetails.link)
 //            }
+        }
+    }
+
+    private fun checkAudiPercent(holder: MovieViewHolder, percent: String) {
+        if (percent.first() == '-'){
+            holder.audiPercentImage.setImageResource(R.drawable.up)
+        }else{
+            holder.audiPercentImage.setImageResource(R.drawable.down)
         }
     }
 
