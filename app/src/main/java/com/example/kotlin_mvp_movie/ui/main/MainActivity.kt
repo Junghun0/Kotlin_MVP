@@ -3,6 +3,7 @@ package com.example.kotlin_mvp_movie.ui.main
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -51,6 +52,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         getCurDate()
 
         recyclerAdapter = MovieRecyclerAdapter(this) { dailyBoxOfficeList, item ->
+            Log.e("dailyoffice-> ",""+dailyBoxOfficeList)
+            Log.e("item-> ",""+item)
             startActivity<ShowDetailActivity>("dailyBoxOffice" to dailyBoxOfficeList, "item" to item)
         }
 

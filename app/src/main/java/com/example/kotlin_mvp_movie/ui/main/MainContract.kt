@@ -40,6 +40,5 @@ interface MainContract {
         fun getMovieDetails(movieNames: List<String>)
 
         fun clearData()
-
     }
 }

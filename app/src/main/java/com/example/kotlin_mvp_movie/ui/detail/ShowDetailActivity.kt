@@ -7,10 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlin_mvp_movie.BaseActivity
 import com.example.kotlin_mvp_movie.R
 import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
+import com.example.kotlin_mvp_movie.network.model.Item
+import com.example.kotlin_mvp_movie.network.model.details.Detail
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks
 import com.github.ksoichiro.android.observablescrollview.ScrollState
@@ -18,43 +21,58 @@ import com.github.ksoichiro.android.observablescrollview.ScrollUtils
 import com.nineoldandroids.view.ViewHelper
 import kotlin.math.max
 
-class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks {
+class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowDetailContract.View {
+    override fun bindMovieData(movieInfo: Detail) {
+        Log.e("activity bind data",""+movieInfo)
+        testList.add(movieInfo)
+        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, testList, dailyBoxOfficeList)
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(applicationContext, message , Toast.LENGTH_SHORT).show()
+    }
 
     companion object{
         private const val MAX_TEXT_SCALE_DELTA = 0.3f
     }
+    private var testList = ArrayList<Detail>()
 
+    override lateinit var presenter: ShowDetailContract.Presenter
     private lateinit var mImageView: View
     private lateinit var mOverlayView: View
     private lateinit var mRecyclerViewBackground: View
     private lateinit var mTitleView: TextView
     private var mActionBarSize = 0
     private var mFlexibleSpaceImageHeight = 0
+    private lateinit var recyclerView: ObservableRecyclerView
+    private lateinit var headerView: View
 
     private lateinit var dailyBoxOfficeList: DailyBoxOfficeList
+    private lateinit var item: Item
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_detail)
-
-        Log.e("item-> ",""+intent.getSerializableExtra("item"))
-        Log.e("dailyBoxOffice-> ",""+intent.getSerializableExtra("dailyBoxOffice"))
+        initPresenter()
 
         dailyBoxOfficeList = intent.getSerializableExtra("dailyBoxOffice") as DailyBoxOfficeList
+        val openYear = dailyBoxOfficeList.openDt.split("-")
+        item = intent.getSerializableExtra("item") as Item
 
+        presenter.getMovieInfo(dailyBoxOfficeList.movieNm , openYear[0].toInt())
 
         mFlexibleSpaceImageHeight = resources.getDimensionPixelSize(R.dimen.flexible_space_image_height)
         mActionBarSize = actionBarSize
 
-        val recyclerView = findViewById<ObservableRecyclerView>(R.id.recycler)
+        recyclerView = findViewById(R.id.recycler)
         recyclerView.setScrollViewCallbacks(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)
-        val headerView = LayoutInflater.from(this).inflate(R.layout.recycler_header, null)
+        headerView = LayoutInflater.from(this).inflate(R.layout.recycler_header, null)
 
         headerView.post { headerView.layoutParams.height = mFlexibleSpaceImageHeight }
 
-        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight)
+//        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, testList)
 
         mImageView = findViewById(R.id.image)
         mOverlayView = findViewById(R.id.overlay)
@@ -138,6 +156,15 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks {
         } else {
             ViewHelper.setPivotX(mTitleView, 0f)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+
+    private fun initPresenter() {
+        presenter = ShowDetailPresenter(this).apply { start() }
     }
 
 

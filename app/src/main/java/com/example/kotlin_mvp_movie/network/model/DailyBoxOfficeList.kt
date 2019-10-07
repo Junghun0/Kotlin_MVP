@@ -26,7 +26,18 @@ scrnCnt	문자열	해당일자에 상영한 스크린수를 출력합니다.
 showCnt	문자열	해당일자에 상영된 횟수를 출력합니다.
 */
 
-data class DailyBoxOfficeList(var movieNm: String, var boxofficeType: String, var showRange: String,
-                              var rank: String, var openDt: String, var salesAmt: String, var salesAcc: String, val rnum: String,
-                              var audiInten: String, var rankInten: String,
-                              var audiCnt: String, var audiAcc: String, var audiChange: String): Serializable
+data class DailyBoxOfficeList(
+    var movieNm: String,
+    var boxofficeType: String,
+    var showRange: String,
+    var rank: String,
+    var openDt: String,
+    var salesAmt: String,
+    var salesAcc: String,
+    val rnum: String,
+    var audiInten: String,
+    var rankInten: String,
+    var audiCnt: String,
+    var audiAcc: String,
+    var audiChange: String
+) : Serializable

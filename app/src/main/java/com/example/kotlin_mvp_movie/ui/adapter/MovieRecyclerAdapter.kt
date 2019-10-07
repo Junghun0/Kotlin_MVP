@@ -88,7 +88,7 @@ class MovieRecyclerAdapter(
 //            holder.movieAudiChange.text = movieData.audiChange
             holder.audiPercent.text = movieData.audiChange + "%"
             checkAudiPercent(holder, movieData.audiChange)
-//            holder.movieRate.rating = movieDetails.userRating.toFloat()/2
+//            holder.movieRate.Rating = movieDetails.userRating.toFloat()/2
             holder.movieRateText.text = movieDetails.userRating
 //            holder.movieDirector.text = movieDetails.director
 //            holder.movieActor.text = movieDetails.actor
