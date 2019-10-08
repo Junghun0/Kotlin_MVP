@@ -16,6 +16,7 @@ class WebViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_web_view)
 
         val detailUrl = intent.getStringExtra("url") as String
+        progressBar_webView.playAnimation()
         applyWebViewSettings(webView_main)
         initWebView(detailUrl)
     }

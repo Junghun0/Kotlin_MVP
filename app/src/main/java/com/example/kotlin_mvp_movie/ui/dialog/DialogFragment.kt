@@ -14,6 +14,7 @@ class DialogFragment : DialogFragment() {
 
     var updateDate:  MutableLiveData<String> = MutableLiveData()
     var selectedDate: String = ""
+    var clickedDate: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,7 @@ class DialogFragment : DialogFragment() {
                 date.toString()
             }
             selectedDate = mYear+"년"+mMonth+"월"+mDate+"일"
+            clickedDate = mYear+mMonth+mDate
             updateDate.value = mYear+mMonth+mDate
             dismiss()
         }

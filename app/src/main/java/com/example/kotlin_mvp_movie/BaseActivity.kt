@@ -9,6 +9,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_mvp_movie.network.model.DailyBoxOfficeList
+import com.example.kotlin_mvp_movie.network.model.Item
 import com.example.kotlin_mvp_movie.network.model.details.Detail
 import com.example.kotlin_mvp_movie.ui.adapter.SimpleHeaderRecyclerAdapter
 import com.example.kotlin_mvp_movie.ui.adapter.SimpleRecyclerAdapter
@@ -73,18 +74,18 @@ abstract class BaseActivity : AppCompatActivity() {
         recyclerView.adapter = SimpleRecyclerAdapter(this, getDummyData(num))
     }
 
-    protected fun setDummyDataWithHeader(recyclerView: RecyclerView, headerHeight: Int, data: ArrayList<Detail>, data2: DailyBoxOfficeList) {
+    protected fun setDummyDataWithHeader(recyclerView: RecyclerView, headerHeight: Int, data: ArrayList<Detail>, data2: DailyBoxOfficeList, clicked: String, item: Item) {
         val headerView = View(this)
         headerView.layoutParams =
             AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, headerHeight)
         headerView.minimumHeight = headerHeight
         // This is required to disable header's list selector effect
         headerView.isClickable = true
-        setDummyDataWithHeader(recyclerView, headerView, data, data2)
+        setDummyDataWithHeader(recyclerView, headerView, data, data2, clicked, item)
     }
 
-    private fun setDummyDataWithHeader(recyclerView: RecyclerView, headerView: View, data: ArrayList<Detail>, data2: DailyBoxOfficeList) {
-        recyclerView.adapter = SimpleHeaderRecyclerAdapter(this, data, headerView, data2)
+    private fun setDummyDataWithHeader(recyclerView: RecyclerView, headerView: View, data: ArrayList<Detail>, data2: DailyBoxOfficeList, clicked: String, item: Item) {
+        recyclerView.adapter = SimpleHeaderRecyclerAdapter(this, data, headerView, data2, clicked, item)
     }
 
     companion object {

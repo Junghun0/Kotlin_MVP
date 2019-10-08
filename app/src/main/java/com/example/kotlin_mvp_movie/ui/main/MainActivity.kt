@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private var movieNameList = ArrayList<String>()
     private val calendarDialog = DialogFragment()
     private var targetDt = ""
+    private var clickedDate = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +51,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         initPresenter()
         getCurDate()
+        progressShow()
 
         recyclerAdapter = MovieRecyclerAdapter(this) { dailyBoxOfficeList, item ->
             Log.e("dailyoffice-> ",""+dailyBoxOfficeList)
             Log.e("item-> ",""+item)
-            startActivity<ShowDetailActivity>("dailyBoxOffice" to dailyBoxOfficeList, "item" to item)
+            startActivity<ShowDetailActivity>("dailyBoxOffice" to dailyBoxOfficeList, "item" to item, "clickedDate" to clickedDate)
         }
 
         main_recyclerView.apply {
@@ -77,6 +79,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 hideWarningView()
                 settingToolBar(date)
                 main_frame_container.setBackgroundColor(Color.WHITE)
+                clickedDate = calendarDialog.clickedDate
                 toolbar.title =
                     calendarDialog.selectedDate + " " + getString(R.string.toolbar_title)
             }
@@ -95,6 +98,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun progressShow() {
         progress_lottie.visibility = View.VISIBLE
+        progress_lottie.playAnimation()
     }
 
     override fun clearData() {

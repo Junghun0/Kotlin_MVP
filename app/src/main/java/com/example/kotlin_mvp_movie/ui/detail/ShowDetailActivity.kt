@@ -3,7 +3,6 @@ package com.example.kotlin_mvp_movie.ui.detail
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -23,9 +22,8 @@ import kotlin.math.max
 
 class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowDetailContract.View {
     override fun bindMovieData(movieInfo: Detail) {
-        Log.e("activity bind data",""+movieInfo)
         testList.add(movieInfo)
-        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, testList, dailyBoxOfficeList)
+        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, testList, dailyBoxOfficeList, clickedDate, item)
     }
 
     override fun showErrorMessage(message: String) {
@@ -49,6 +47,7 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowD
 
     private lateinit var dailyBoxOfficeList: DailyBoxOfficeList
     private lateinit var item: Item
+    private lateinit var clickedDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +56,7 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowD
 
         dailyBoxOfficeList = intent.getSerializableExtra("dailyBoxOffice") as DailyBoxOfficeList
         val openYear = dailyBoxOfficeList.openDt.split("-")
+        clickedDate = intent.getStringExtra("clickedDate") as String
         item = intent.getSerializableExtra("item") as Item
 
         presenter.getMovieInfo(dailyBoxOfficeList.movieNm , openYear[0].toInt())
@@ -71,8 +71,6 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowD
         headerView = LayoutInflater.from(this).inflate(R.layout.recycler_header, null)
 
         headerView.post { headerView.layoutParams.height = mFlexibleSpaceImageHeight }
-
-//        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, testList)
 
         mImageView = findViewById(R.id.image)
         mOverlayView = findViewById(R.id.overlay)
