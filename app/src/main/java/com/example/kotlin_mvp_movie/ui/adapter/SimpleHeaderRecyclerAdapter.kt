@@ -81,6 +81,7 @@ class SimpleHeaderRecyclerAdapter(
             viewHolder.galleryViewPager.adapter = GalleryViewPagerAdapter(imageList, context)
             viewHolder.totalAudi.text = (mData.audiAcc.toInt() / 10000).toString() + " 만명"
             viewHolder.actorRecyclerView.adapter = ActorRecyclerViewAdapter(mItems[position - 1].Data[0].Result[0].staff, context)
+            viewHolder.actorRecyclerView.isNestedScrollingEnabled = false
             viewHolder.webViewLink.text = mData2.link
             viewHolder.webViewLink.setOnClickListener {
                 context.startActivity<WebViewActivity>("url" to mData2.link)

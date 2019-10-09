@@ -18,6 +18,7 @@ import com.example.kotlin_mvp_movie.ui.adapter.MovieRecyclerAdapter
 import com.example.kotlin_mvp_movie.ui.detail.ShowDetailActivity
 import com.example.kotlin_mvp_movie.ui.dialog.DialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.warning_layout.view.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
@@ -27,12 +28,14 @@ import java.util.*
 class MainActivity : AppCompatActivity(), MainContract.View {
     override fun hideWarningView() {
         if (warning_layout.isVisible) {
+            warning_layout.nodata_lottie.playAnimation()
             warning_layout.visibility = View.GONE
         }
     }
 
     override fun showWarningView() {
         if (!warning_layout.isVisible) {
+            warning_layout.nodata_lottie.playAnimation()
             warning_layout.visibility = View.VISIBLE
         }
     }
