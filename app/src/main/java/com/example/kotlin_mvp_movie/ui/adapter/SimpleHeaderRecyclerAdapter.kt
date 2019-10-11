@@ -1,7 +1,6 @@
 package com.example.kotlin_mvp_movie.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,6 @@ class SimpleHeaderRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.e("mItems item Count",""+mItems)
         return if (mHeaderView == null) {
             mItems.size
         } else {
@@ -57,7 +55,6 @@ class SimpleHeaderRecyclerAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         if (viewHolder is ItemViewHolder) {
-            Log.e("mItems-> "," "+mItems)
             viewHolder.keyWordTextView.text = mItems[position - 1].Data[0].Result[0].keywords
             viewHolder.plotTextView.text = mItems[position - 1].Data[0].Result[0].plot
             viewHolder.directorName.text = mItems[position - 1].Data[0].Result[0].director[0].directorNm
@@ -104,19 +101,18 @@ class SimpleHeaderRecyclerAdapter(
         val totalAudi: TextView = view.findViewById(R.id.totalAudi)
         val openingDate: TextView = view.findViewById(R.id.detail_openDate)
         val actorRecyclerView: RecyclerView = view.findViewById(R.id.actor_recyclerView)
-
         val webViewLink: TextView = view.findViewById(R.id.webView_Link)
     }
 
     private fun getDateDistance(end: String): String{
         // 선택날짜 - 개봉날짜
-        val curDateFormat = SimpleDateFormat("yyyyMMdd")
+        val formatter = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
+
         val calendar: Calendar = GregorianCalendar(Locale.KOREA)
         calendar.add(Calendar.DATE, -1)
 
-        val dateStart = curDateFormat.format(calendar.time).toString()
+        val dateStart = formatter.format(calendar.time).toString()
 
-        val formatter = SimpleDateFormat("yyyyMMdd")
         val beginDate = formatter.parse(dateStart)
         val endDate = formatter.parse(end)
 
@@ -127,7 +123,7 @@ class SimpleHeaderRecyclerAdapter(
 
     private fun getDateDistance(start: String, end: String): String{
         // start - 개봉일 , end - 선택일
-        val formatter = SimpleDateFormat("yyyyMMdd")
+        val formatter = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
         val startDate = formatter.parse(start)
         val endDate = formatter.parse(end)
 

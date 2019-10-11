@@ -1,10 +1,10 @@
-package com.example.kotlin_mvp_movie.repository
+package com.example.kotlin_mvp_movie.retrofit
 
 import com.example.kotlin_mvp_movie.network.MovieDetailApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object MovieDetailRepository {
+object MovieDetailRetrofit {
     private const val BASE_URL_MOVIE = "https://openapi.naver.com/v1/search/"
 
     private lateinit var movieDetailImpl: MovieDetailApi

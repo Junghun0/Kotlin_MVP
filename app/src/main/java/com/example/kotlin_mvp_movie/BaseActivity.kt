@@ -42,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     @JvmOverloads
-    protected fun setDummyDataWithHeader(
+    protected fun setDataWithHeader(
         listView: ListView,
         headerHeight: Int,
         num: Int = NUM_OF_ITEMS
@@ -53,10 +53,10 @@ abstract class BaseActivity : AppCompatActivity() {
         headerView.minimumHeight = headerHeight
         // This is required to disable header's list selector effect
         headerView.isClickable = true
-        setDummyDataWithHeader(listView, headerView, num)
+        setDataWithHeader(listView, headerView, num)
     }
 
-    private fun setDummyDataWithHeader(listView: ListView, headerView: View, num: Int) {
+    private fun setDataWithHeader(listView: ListView, headerView: View, num: Int) {
         listView.addHeaderView(headerView)
         setDummyData(listView, num)
     }
@@ -74,17 +74,17 @@ abstract class BaseActivity : AppCompatActivity() {
         recyclerView.adapter = SimpleRecyclerAdapter(this, getDummyData(num))
     }
 
-    protected fun setDummyDataWithHeader(recyclerView: RecyclerView, headerHeight: Int, data: ArrayList<Detail>, data2: DailyBoxOfficeList, clicked: String, item: Item) {
+    protected fun setDataWithHeader(recyclerView: RecyclerView, headerHeight: Int, data: ArrayList<Detail>, data2: DailyBoxOfficeList, clicked: String, item: Item) {
         val headerView = View(this)
         headerView.layoutParams =
             AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, headerHeight)
         headerView.minimumHeight = headerHeight
         // This is required to disable header's list selector effect
         headerView.isClickable = true
-        setDummyDataWithHeader(recyclerView, headerView, data, data2, clicked, item)
+        setDataWithHeader(recyclerView, headerView, data, data2, clicked, item)
     }
 
-    private fun setDummyDataWithHeader(recyclerView: RecyclerView, headerView: View, data: ArrayList<Detail>, data2: DailyBoxOfficeList, clicked: String, item: Item) {
+    private fun setDataWithHeader(recyclerView: RecyclerView, headerView: View, data: ArrayList<Detail>, data2: DailyBoxOfficeList, clicked: String, item: Item) {
         recyclerView.adapter = SimpleHeaderRecyclerAdapter(this, data, headerView, data2, clicked, item)
     }
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_mvp_movie.R
 import java.util.*
@@ -26,15 +25,7 @@ class SimpleRecyclerAdapter(context: Context, items: ArrayList<String> ) : Recyc
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = "dd"
-        holder.textView2.text = "aa"
-//        holder.textView.text = mItems[position]
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        var textView: TextView = view.findViewById<View>(R.id.text1) as TextView
-        var textView: TextView = view.findViewById(R.id.detail_keyword)
-        var textView2: TextView = view.findViewById(R.id.detail_openDate)
-
-    }
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

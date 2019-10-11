@@ -2,7 +2,7 @@ package com.example.kotlin_mvp_movie.ui.detail
 
 import com.example.kotlin_mvp_movie.network.MovieInfoApi
 import com.example.kotlin_mvp_movie.network.model.details.Detail
-import com.example.kotlin_mvp_movie.repository.MovieInfoRepository
+import com.example.kotlin_mvp_movie.retrofit.MovieInfoRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,7 +11,7 @@ class ShowDetailPresenter (private var view: ShowDetailContract.View) : ShowDeta
     private lateinit var movieInfoRepository: MovieInfoApi
 
     override fun start() {
-        movieInfoRepository = MovieInfoRepository.getInstance()
+        movieInfoRepository = MovieInfoRetrofit.getInstance()
     }
 
     override fun attachView(view: ShowDetailContract.View) {

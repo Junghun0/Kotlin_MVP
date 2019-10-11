@@ -3,10 +3,10 @@ package com.example.kotlin_mvp_movie.ui.main
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val calendarDialog = DialogFragment()
     private var targetDt = ""
     private var clickedDate = ""
+    private var backPressedTime:Long = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +58,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         progressShow()
 
         recyclerAdapter = MovieRecyclerAdapter(this) { dailyBoxOfficeList, item ->
-            Log.e("dailyoffice-> ",""+dailyBoxOfficeList)
-            Log.e("item-> ",""+item)
             startActivity<ShowDetailActivity>("dailyBoxOffice" to dailyBoxOfficeList, "item" to item, "clickedDate" to clickedDate)
         }
 
@@ -164,5 +163,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             R.id.action_calendar -> calendarDialog.show(supportFragmentManager, "show")
         }
         return true
+    }
+
+    override fun onBackPressed() {
+        val tempTime: Long = System.currentTimeMillis()
+        val intervalTime = tempTime - backPressedTime
+
+        if (intervalTime in 0..2000){
+            super.onBackPressed()
+        }else{
+            backPressedTime = tempTime
+            Toast.makeText(applicationContext, "앱을 종료하려면 한번 더 눌러주세요.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

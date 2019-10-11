@@ -21,9 +21,10 @@ import com.nineoldandroids.view.ViewHelper
 import kotlin.math.max
 
 class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowDetailContract.View {
+
     override fun bindMovieData(movieInfo: Detail) {
-        testList.add(movieInfo)
-        setDummyDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, testList, dailyBoxOfficeList, clickedDate, item)
+        detailList.add(movieInfo)
+        setDataWithHeader(recyclerView, mFlexibleSpaceImageHeight, detailList, dailyBoxOfficeList, clickedDate, item)
     }
 
     override fun showErrorMessage(message: String) {
@@ -33,7 +34,7 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowD
     companion object{
         private const val MAX_TEXT_SCALE_DELTA = 0.3f
     }
-    private var testList = ArrayList<Detail>()
+    private var detailList = ArrayList<Detail>()
 
     override lateinit var presenter: ShowDetailContract.Presenter
     private lateinit var mImageView: View
@@ -55,9 +56,9 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowD
         initPresenter()
 
         dailyBoxOfficeList = intent.getSerializableExtra("dailyBoxOffice") as DailyBoxOfficeList
-        val openYear = dailyBoxOfficeList.openDt.split("-")
         clickedDate = intent.getStringExtra("clickedDate") as String
         item = intent.getSerializableExtra("item") as Item
+        val openYear = dailyBoxOfficeList.openDt.split("-")
 
         presenter.getMovieInfo(dailyBoxOfficeList.movieNm , openYear[0].toInt())
 
@@ -65,11 +66,13 @@ class ShowDetailActivity : BaseActivity() , ObservableScrollViewCallbacks, ShowD
         mActionBarSize = actionBarSize
 
         recyclerView = findViewById(R.id.recycler)
-        recyclerView.setScrollViewCallbacks(this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(false)
-        headerView = LayoutInflater.from(this).inflate(R.layout.recycler_header, null)
+        recyclerView.apply {
+            setScrollViewCallbacks(this@ShowDetailActivity)
+            layoutManager = LinearLayoutManager(this@ShowDetailActivity)
+            setHasFixedSize(false)
+        }
 
+        headerView = LayoutInflater.from(this).inflate(R.layout.recycler_header, null)
         headerView.post { headerView.layoutParams.height = mFlexibleSpaceImageHeight }
 
         mImageView = findViewById(R.id.image)

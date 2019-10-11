@@ -1,10 +1,10 @@
-package com.example.kotlin_mvp_movie.repository
+package com.example.kotlin_mvp_movie.retrofit
 
 import com.example.kotlin_mvp_movie.network.MovieApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object MovieRepository {
+object MovieRetrofit {
     private const val BASE_URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
 
     private lateinit var movieApiImpl: MovieApi

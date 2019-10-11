@@ -1,7 +1,6 @@
 package com.example.kotlin_mvp_movie.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ class ActorRecyclerViewAdapter (private var mActors: ArrayList<Staff>, val conte
     }
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
-        Log.e("actor List adapter",""+mActors)
         holder.actorNameTextView.text = mActors[position].staffNm
         holder.actorNameRollTextView.text = mActors[position].staffRole
         holder.actorNameRollGroup.text = mActors[position].staffRoleGroup

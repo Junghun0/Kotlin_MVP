@@ -7,8 +7,6 @@ import retrofit2.http.Query
 
 
 interface MovieApi {
-    //key=f8528e508b93d59e755310d63eb0455a
-    //targetDt = &targetDt=20190427
     @GET("searchDailyBoxOfficeList.json")
     fun getMovieInfo(@Query("key") key: String, @Query("targetDt") targetDt: String): Call<ServerResponse>
 }

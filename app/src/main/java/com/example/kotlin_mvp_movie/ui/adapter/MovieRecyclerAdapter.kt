@@ -26,21 +26,11 @@ class MovieRecyclerAdapter(
         val audiPercent: TextView = itemView.findViewById(R.id.audi_percent)
         val audiPercentImage: ImageView = itemView.findViewById(R.id.audiPercent_image)
         val movieLayout: ConstraintLayout = itemView.findViewById(R.id.movie_layout)
-
         val movieThumbnail: ImageView = itemView.findViewById(R.id.movie_thumbNail)
         val movieRateText: TextView = itemView.findViewById(R.id.movie_rating_text)
         val movieRank: TextView = itemView.findViewById(R.id.movie_rank_textView)
-        //        val movieRate: RatingBar = itemView.findViewById(R.id.movie_rate)
-//        val movieDirector: TextView = itemView.findViewById(R.id.movie_director)
-//        val movieActor: TextView = itemView.findViewById(R.id.movie_actor)
         val movieOpendt: TextView = itemView.findViewById(R.id.movie_openDt)
-        //        val movieTodayAudi: TextView = itemView.findViewById(R.id.movie_today_audi)
-//        val movieTotalAudi: TextView = itemView.findViewById(R.id.movie_total_audi)
-//        val movieTotalSales: TextView = itemView.findViewById(R.id.movie_total_sales)
         val movieName: TextView = itemView.findViewById(R.id.movie_name)
-
-//        val movieAudiChange: TextView = itemView.findViewById(R.id.movie_audi_change)
-//        val movieLink: TextView = itemView.findViewById(R.id.movie_link)
     }
 
     fun clearData() {
@@ -75,32 +65,19 @@ class MovieRecyclerAdapter(
         if (mMovieDetailList.size == 10) {
             movieDetails = mMovieDetailList[position]
             movieData = mMovieDataList[position]
-
             holder.movieLayout.setOnClickListener {
                 clickListener.invoke(movieData, movieDetails)
             }
-
             holder.movieName.text = movieData.movieNm
-//            holder.movieTotalSales.text = movieData.salesAcc
-//            holder.movieTotalAudi.text = movieData.audiAcc
-//            holder.movieTodayAudi.text = movieData.audiCnt
             holder.movieOpendt.text = makeDateFormat(movieData.openDt)
-//            holder.movieAudiChange.text = movieData.audiChange
             holder.audiPercent.text = movieData.audiChange + "%"
             checkAudiPercent(holder, movieData.audiChange)
-//            holder.movieRate.Rating = movieDetails.userRating.toFloat()/2
             holder.movieRateText.text = movieDetails.userRating
-//            holder.movieDirector.text = movieDetails.director
-//            holder.movieActor.text = movieDetails.actor
-//            holder.movieLink.text = movieDetails.link
             holder.movieRank.text = movieData.rnum
             holder.movieThumbnail.clipToOutline = true
             Glide.with(context)
                 .load(movieDetails.image)
                 .into(holder.movieThumbnail)
-//            holder.movieLink.setOnClickListener {
-//                context.startActivity<WebViewActivity>("url" to movieDetails.link)
-//            }
         }
     }
 

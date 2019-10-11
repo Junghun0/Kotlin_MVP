@@ -6,8 +6,8 @@ import com.example.kotlin_mvp_movie.network.MovieDetailApi
 import com.example.kotlin_mvp_movie.network.model.Item
 import com.example.kotlin_mvp_movie.network.model.MovieDetail
 import com.example.kotlin_mvp_movie.network.model.ServerResponse
-import com.example.kotlin_mvp_movie.repository.MovieDetailRepository
-import com.example.kotlin_mvp_movie.repository.MovieRepository
+import com.example.kotlin_mvp_movie.retrofit.MovieDetailRetrofit
+import com.example.kotlin_mvp_movie.retrofit.MovieRetrofit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,8 +24,8 @@ class MainPresenter(private var view: MainContract.View) : MainContract.Presente
     private lateinit var movieDetailList: ArrayList<Item>
 
     override fun start() {
-        movieRepository = MovieRepository.getInstance()
-        movieDetailRepository = MovieDetailRepository.getInstance()
+        movieRepository = MovieRetrofit.getInstance()
+        movieDetailRepository = MovieDetailRetrofit.getInstance()
     }
 
     override fun attachView(view: MainContract.View) {

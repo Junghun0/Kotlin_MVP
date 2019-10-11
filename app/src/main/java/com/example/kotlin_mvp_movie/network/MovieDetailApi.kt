@@ -8,8 +8,6 @@ import retrofit2.http.Query
 
 
 interface MovieDetailApi {
-    //naver -> client id = nqyQmCYpD9MCWhuGJ5xJ
-    //naver -> client secret = 3iwxzdBiSz
     @Headers("X-Naver-Client-Id: nqyQmCYpD9MCWhuGJ5xJ", "X-Naver-Client-Secret: 3iwxzdBiSz")
     @GET("movie.json")
     fun getMovieDetails(@Query("query") movieName: String): Call<MovieDetail>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">영화뭐있지</string>
-    <string name="toolbar_title">기준 영화 10위</string>
+    <string name="toolbar_title">영화 10위</string>
     <string name="api_key">f8528e508b93d59e755310d63eb0455a</string>
 
     <!-- TODO: Remove or change this placeholder text -->
