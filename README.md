@@ -11,3 +11,10 @@
 ### 사용 라이브러리
 - Coroutines
 - Glide
+
+### 실행화면
+
+![ezgif com-optimize](https://user-images.githubusercontent.com/30828236/67467986-b2f49480-f684-11e9-9275-228ffa4cdb44.gif)
+
+
+
